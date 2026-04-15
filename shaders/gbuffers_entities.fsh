@@ -18,10 +18,16 @@ layout(location = 2) out vec4 encodedNormal;
 
 void main() {
 	color = texture(gtexture, texcoord) * glcolor;
+	
+	// make it less yellow idfk
+	color.r = clamp(color.r-0.05,0.0,1.0);
+	color.g = clamp(color.g-0.05,0.0,1.0);
+
 	color.rgb = mix(color.rgb, entityColor.rgb, entityColor.a);
 	if (color.a < alphaTestRef) {
 		discard;
 	}
-	lightData = texture(lightmap, lmcoord);
+	vec2 n = texture(lightmap, lmcoord).rg;
+	lightData = vec4(n.r, n.g, 0.0, 1.0);
 	encodedNormal = vec4(normal * 0.5 + 0.5, 1.0);  // convert from [-1,1] to [0,1]
 }

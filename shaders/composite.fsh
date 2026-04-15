@@ -2,6 +2,8 @@
 
 #include "/lib/distort.glsl"
 
+#include "/lib/colors.glsl"
+
 const float shadowDistanceRenderMul = 1.0;
 const int noiseTextureResolution = 64;
 
@@ -25,6 +27,7 @@ uniform mat4 shadowProjection;
 uniform vec3 shadowLightPosition;  // gives sun/moon pos
 uniform float viewHeight;
 uniform float viewWidth;
+uniform float sunAngle;
 
 in vec2 texcoord;
 
@@ -38,10 +41,6 @@ const int colortex0Format = RGB16;
 // "color" will be written to colortex0.
 layout(location = 0) out vec4 color;
 
-const vec3 blocklightColor = vec3(1.0, 0.5, 0.08);
-const vec3 skylightColor = vec3(0.05, 0.15, 0.3);
-const vec3 sunlightColor = vec3(1.0);
-const vec3 ambientColor = vec3(0.1);
 
 vec3 projectAndDivide(mat4 projectionMatrix, vec3 position){
 	vec4 homPos = projectionMatrix * vec4(position, 1.0);
@@ -165,14 +164,15 @@ void main() {
 
 
 	// light stuff idk
-	vec3 blocklight = lightmap.r * blocklightColor;
-	vec3 skylight = lightmap.g * skylightColor;
-	vec3 ambient = ambientColor;
+	vec3 blocklight = lightmap.r * getBlocklightColor(sunAngle);
+	vec3 skylight = lightmap.g * getSkylightColor(sunAngle);
+	vec3 ambient = getAmbientColor(sunAngle);
 	// vec3 sunlight = sunlightColor * clamp(dot(worldLightVector, normal), 0.0, 1.0) * pow(shadow, vec3(2.2));
-	vec3 sunlight = sunlightColor * clamp(dot(worldLightVector, normal), 0.0, 1.0) * shadow;
+	vec3 sunlight = getSunlightColor(sunAngle) * clamp(dot(worldLightVector, normal), 0.0, 1.0) * shadow;
 
 
 	color.rgb *= blocklight + skylight + ambient + sunlight;
+	// color.rgb = getAmbientColor(sunAngle);
 	// color.rgb = getNoise(texcoord).rgb;
 	// color.rgb = texture(shadowtex0, texcoord).rgb;
 }
