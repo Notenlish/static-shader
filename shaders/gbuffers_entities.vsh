@@ -16,3 +16,4 @@ void main() {
 	normal = gl_NormalMatrix * gl_Normal;  // normal in view space
 	normal = mat3(gbufferModelViewInverse) * normal;
 }
+

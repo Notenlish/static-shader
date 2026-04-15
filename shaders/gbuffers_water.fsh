@@ -18,4 +18,6 @@ void main() {
 	if (color.a < alphaTestRef) {
 		discard;
 	}
+	color.b += 0.05;
+	color.a += 0.05;
 }
