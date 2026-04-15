@@ -15,8 +15,8 @@ vec3 getSunlightColor(float sunAngle) {
 }
 
 vec3 getAmbientColor(float sunAngle) {
-    const vec3 ambientColor = vec3(0.1);
-    return ambientColor * vec3(getMultiplierColor(0.5, sunAngle));
+    const vec3 ambientColor = vec3(0.0);
+    return ambientColor * vec3(getMultiplierColor(1.0, sunAngle));
 }
 
 vec3 getSkylightColor(float sunAngle) {

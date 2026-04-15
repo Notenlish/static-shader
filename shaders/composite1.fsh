@@ -32,7 +32,7 @@ void main() {
 
     float dist = length(viewPos) / far;
     // float foggy = smoothstep(0.0, far, length(viewPos));
-    float foggy = clamp(exp(-FOG_DENSITY * (1.0 - dist)), 0.0, 1.0);
+    float foggy = clamp(exp(-FOG_DENSITY * (0.8 - dist)), 0.05, 1.0);
 
     color.rgb = mix(color.rgb, pow(fogColor, vec3(1)), foggy);
 }

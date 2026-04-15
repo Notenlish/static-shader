@@ -47,7 +47,7 @@ vec3 yiq2rgb(vec3 yiq) {
     return mat3(1.000, 1.000, 1.000, 0.956, -0.272, -1.106, 0.621, -0.647, 1.703) * yiq;
 }
 
-#define SAMPLES 3  // default 6
+#define SAMPLES 4  // default 6
 
 vec3 vhsTex2D(vec2 uv, float rot) {
     if (validuv(uv)) {
@@ -97,7 +97,7 @@ void main() {
 
     // crease noise
     float cn = tcNoise * (0.3 + 0.7 * tcPhase);
-    if (0.29 < cn) {
+    if (0.8 < cn) {
         vec2 uvt = (uvn + V.yx * v2random(vec2(uvn.y, time))) * vec2(0.1, 1.0);
         float n0 = v2random(uvt);
         float n1 = v2random(uvt + V.yx / VHSRES.x);
