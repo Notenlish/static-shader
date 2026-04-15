@@ -29,3 +29,6 @@ void main() {
 	lmcoord = (gl_TextureMatrix[1] * gl_MultiTexCoord1).xy;
 	glcolor = gl_Color;
 }
+
+// I need to create a block.properties file and assign spesific id's to water 
+// that way if its only water/lava I can do it
