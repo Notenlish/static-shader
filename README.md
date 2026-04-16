@@ -1,8 +1,6 @@
 ![](ss.png)
 # static-shader
-shader for minecraft
-
-Adds vhs effect, soft shadows, bloom, wavy water.
+shader for minecraft that adds vhs effect, soft shadows, bloom, wavy water.
 Attempting to make the visuals like those old photos taken in PSP/original iphone.
 
 Planning to add another type of bloom(call of duty bloom) and keep the original blur for daytime
