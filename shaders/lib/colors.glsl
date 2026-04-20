@@ -10,7 +10,7 @@ float getMultiplierColor(float base, float sunAngle) {
 }
 
 vec3 getSunlightColor(float sunAngle) {
-    vec3 baseSunlightColor = vec3(1.0);
+    vec3 baseSunlightColor = vec3(1.0, 1.0, 1.0);
     return baseSunlightColor * vec3(getMultiplierColor(0.5, sunAngle));
 }
 
