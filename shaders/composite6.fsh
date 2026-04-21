@@ -19,6 +19,7 @@ layout(location = 0) out vec4 color;
 #include "/lib/vhs.glsl"
 
 void main() {
+    // if I get rid of this if check the vhs effect is fixed again??
     #ifdef VHS_ENABLED
     vec2 scale = vec2(VHSRES.x / viewWidth, VHSRES.y / viewHeight);
 

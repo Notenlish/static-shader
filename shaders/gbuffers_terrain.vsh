@@ -42,8 +42,8 @@ void main() {
     }
     #endif
 
-    // #ifdef SWAY_GRASS
-    if (int(round(mc_Entity.x)) == 3) {
+    #ifdef SWAY_GRASS
+    if (int(round(mc_Entity.x)) == 2) {
         vec3 midBlockPos = at_midBlock.xyz / 64.0;
         float howHigh = (-midBlockPos.y) + 0.5; // 1.0 if the top of the leaf, otherwise 0.0
         howHigh = clamp(howHigh, 0.1, 1.0); // clamp to 0.1 - 1.0 range so that the lower part still moves a bit
@@ -54,9 +54,8 @@ void main() {
         p.x += sin((worldPos.z / (3.14 * SWAY_SIZE)) + input * 1.2) * 0.08 * howHigh * SWAY_AMOUNT;
         // p.y += cos(input) * 0.02;
         p.z -= cos(worldPos.x + input * 1.4) * 0.01 * howHigh * SWAY_AMOUNT;
-		p.z = 1000;
     }
-    // #endif
+    #endif
 
     gl_Position = gl_ModelViewProjectionMatrix * p;
     texcoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
