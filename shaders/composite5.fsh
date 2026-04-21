@@ -20,9 +20,8 @@ layout(location = 0) out vec4 color;
 #include "/lib/vhs.glsl"
 
 void main() {
-    vec2 fragCoord = texcoord * vec2(viewWidth, viewHeight);
-
     #ifdef VHS_ENABLED
+    vec2 fragCoord = texcoord * vec2(viewWidth, viewHeight);
     vec2 uv = fragCoord.xy / VHSRES;
     // vec2 uv = texcoord;
 

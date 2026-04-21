@@ -64,9 +64,9 @@ vec3 getShadow(vec3 shadowScreenPos) {
     float transparentShadow = step(shadowScreenPos.z, texture(shadowtex0, shadowScreenPos.xy).r); // sample the shadowmap containing everything
 
     /*
-                        	note that a value of 1.0 means 100% of sunlight is getting through
-                        	not that there is 100% shadowing
-                        	*/
+                            	note that a value of 1.0 means 100% of sunlight is getting through
+                            	not that there is 100% shadowing
+                            	*/
 
     // fully lit.
     if (transparentShadow == 1.0) {
@@ -84,9 +84,9 @@ vec3 getShadow(vec3 shadowScreenPos) {
     vec4 shadowColor = texture(shadowcolor0, shadowScreenPos.xy);
 
     /*
-                        	we use 1 - the alpha to get how much light is let through
-                        	and multiply that light by the color of the caster
-                        	*/
+                            	we use 1 - the alpha to get how much light is let through
+                            	and multiply that light by the color of the caster
+                            	*/
     return shadowColor.rgb * vec3((1.0 - shadowColor.a));
 }
 
@@ -155,9 +155,13 @@ void main() {
     vec3 viewPos = projectAndDivide(gbufferProjectionInverse, NDCPos);
     vec3 feetPlayerPos = (gbufferModelViewInverse * vec4(viewPos, 1.0)).xyz;
 
+    #ifdef SOFT_SHADOWS
+    vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
+    #else
     // snap to 16x16 textures
     vec3 snappedPos = (floor((0.00001 + feetPlayerPos + cameraPositionFract) * 16) + 0.5) / 16 - cameraPositionFract;
     vec3 shadowViewPos = (shadowModelView * vec4(snappedPos, 1.0)).xyz;
+    #endif
 
     // vec3 shadowViewPos = (shadowModelView * vec4(feetPlayerPos, 1.0)).xyz;
     vec4 shadowClipPos = shadowProjection * vec4(shadowViewPos, 1.0);
