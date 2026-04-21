@@ -7,12 +7,14 @@ https://www.shadertoy.com/view/MdffD7
 #define V vec2(0.,1.)
 #define PI 3.14159265
 #define HUGE 1E9
-#define VHSRES vec2(640, 480.0)  // normally 320x240
+#define VHS_W 640.0 // [160 320 480 640 800]
+#define VHS_H 480.0 // [120 240 360 480 600]
+#define VHSRES vec2(VHS_W, VHS_H)
 #define saturate(i) clamp(i,0.,1.)
 #define lofi(i,d) floor(i/d)*d
 #define validuv(v) (abs(v.x-0.5)<0.5&&abs(v.y-0.5)<0.5)
 
-#define SAMPLES 4  // default 6
+#define VHS_SAMPLES 4  // [2 4 6 8 12 16]
 
 float v2random(vec2 uv) {
     return texture(noisetex, mod(uv, vec2(1.0))).x;
@@ -33,11 +35,11 @@ vec3 yiq2rgb(vec3 yiq) {
 vec3 vhsTex2D(vec2 uv, float rot) {
     if (validuv(uv)) {
         vec3 yiq = vec3(0.0);
-        for (int i = 0; i < SAMPLES; i++) {
+        for (int i = 0; i < VHS_SAMPLES; i++) {
             yiq += (
                 rgb2yiq(texture(colortex0, uv - vec2(float(i), 0.0) / VHSRES).xyz) *
-                    vec2(float(i), float(SAMPLES - 1 - i)).yxx / float(SAMPLES - 1)
-                ) / float(SAMPLES) * 2.0;
+                    vec2(float(i), float(VHS_SAMPLES - 1 - i)).yxx / float(VHS_SAMPLES - 1)
+                ) / float(VHS_SAMPLES) * 2.0;
         }
         if (rot != 0.0) {
             yiq.yz = rotate2D(rot) * yiq.yz;

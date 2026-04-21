@@ -19,6 +19,7 @@ layout(location = 0) out vec4 color;
 #include "/lib/vhs.glsl"
 
 void main() {
+    #ifdef VHS_ENABLED
     vec2 scale = vec2(VHSRES.x / viewWidth, VHSRES.y / viewHeight);
 
     vec2 newUV = texcoord * scale;
@@ -27,4 +28,5 @@ void main() {
 
     color = texture(colortex0, newUV);
     // color = vec4(1.0);
+    #endif
 }

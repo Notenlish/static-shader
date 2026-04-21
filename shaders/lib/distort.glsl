@@ -1,13 +1,13 @@
-const int shadowMapResolution = 2048;
+const int shadowMapResolution = 2048;  // [512 1024 2048 4096] shadow resolution
 
 const bool shadowtex0Nearest = true;
 const bool shadowtex1Nearest = true;
 const bool shadowcolor0Nearest = true;
 
 // defines the total radius in which we sample (in pixels)
-#define SHADOW_RADIUS 1
+#define SHADOW_RADIUS 1 // [1 2 3 4 5 6] shadow radius
 // controls how many samples we take for every pixel we sample
-#define SHADOW_RANGE 4
+#define SHADOW_RANGE 4  // [1 2 3 4 6 8 12 16] shadow range
 
 vec3 distortShadowClipPos(vec3 shadowClipPos) {
     float distortionFactor =  length(shadowClipPos.xy);  // distance from the player in shadow clip space

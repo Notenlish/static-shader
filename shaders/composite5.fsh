@@ -11,20 +11,22 @@ uniform sampler2D noisetex;
 
 in vec2 texcoord;
 
+#define VHS_SPEED 10 // [1 2 3 5 8 10 20]
+#define VHS_ENABLED
+
 /* RENDERTARGETS: 0 */
 layout(location = 0) out vec4 color;
 
-
 #include "/lib/vhs.glsl"
-
 
 void main() {
     vec2 fragCoord = texcoord * vec2(viewWidth, viewHeight);
-    
+
+    #ifdef VHS_ENABLED
     vec2 uv = fragCoord.xy / VHSRES;
     // vec2 uv = texcoord;
 
-    float time = frameTimeCounter;
+    float time = frameTimeCounter * VHS_SPEED * 0.1;
 
     vec2 uvn = uv;
     vec3 col = vec3(0.0, 0.0, 0.0);
@@ -71,4 +73,5 @@ void main() {
     col = yiq2rgb(col);
 
     color = vec4(col, 1.0);
+    #endif
 }

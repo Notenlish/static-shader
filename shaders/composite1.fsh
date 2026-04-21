@@ -13,15 +13,13 @@ in vec2 texcoord;
 layout(location = 0) out vec4 color;
 layout(location = 1) out vec4 waternormals;
 
-const int MAX_STEPS = 40;
-const float STEP_SIZE = 0.4;
-const float THICKNESS = 0.5;
-const float MAX_DISTANCE = 50.0;
+#define MAX_STEPS 40 // [10 20 40 80 160]
+#define STEP_SIZE 0.4  // [0.1 0.2 0.4 0.8]
+#define THICKNESS 0.5  // [0.1 0.2 0.4 0.5 1.0]
+#define MAX_DISTANCE 50.0  // [50.0 75.0 100.0 150.0]
 
 /*
-
 https://www.shadertoy.com/view/3lyXRt
-
 */
 vec3 getViewPos(vec2 uv) {
     float depth = texture(depthtex0, uv).r;
