@@ -18,6 +18,8 @@ layout(location = 0) out vec4 color;
 
 #include "/lib/vhs.glsl"
 
+#define VHS_ENABLED
+
 void main() {
     // if I get rid of this if check the vhs effect is fixed again??
     #ifdef VHS_ENABLED
@@ -29,5 +31,9 @@ void main() {
 
     color = texture(colortex0, newUV);
     // color = vec4(1.0);
+    #else
+    color = texture(colortex0, texcoord);
+    // color = vec4(1.0);
     #endif
+
 }
